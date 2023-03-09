@@ -1,4 +1,4 @@
-const characters = [
+/* const characters = [
   {
     id: 1,
     name: "Rick Sanchez",
@@ -30,3 +30,4 @@ const characters = [
 ];
 
 module.exports = characters;
+ */
