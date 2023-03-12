@@ -1,24 +1,24 @@
-const http = require("http");
-const getCharById = require("./controllers/getCharById");
-const getCharDetail = require("./controllers/getCharDetail");
-const characters = require("./utils/data");
-
+const express = require("express");
+const cors = require('cors');
+const router = require("./controllers");
+const server = express();
 const PORT = 3001;
 
-http
-  .createServer((req, res) => {
+// Permitir acceso solo desde un origen específico
+const corsOptions = {
+  origin: 'http://localhost:3000'
+};
 
-    res.setHeader("Access-Control-Allow-Origin", "*");
+server.use(cors(corsOptions));
 
-    const id = Number(req.url.split("/").at(-1));
+/* Agregar middleware CORS global
+server.use(cors()); */
 
-    if (req.url.includes("onsearch")) {
-      getCharById(res, id);
-    }
+// Middlewares
+server.use(express.json());
+// Rutas
+server.use("/", router);
 
-    if (req.url.includes("detail")) {
-      getCharDetail(res, id);
-    }
-    
-  })
-  .listen(PORT, "localhost");
+server.listen(PORT, () => {
+  console.log("Server raised in port => " + PORT);
+});
