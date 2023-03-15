@@ -20,11 +20,11 @@ function deleteFav(req, res) {
   let { id } = req.params;
 
   if (!id) {
-    res.status(400).json({ error: "No se recibió el id" });
+    res.status(500).json({ error: "No se recibió el id" });
   } else {
     if (!data.some((pub) => Number(pub.id) === Number(id))) {
       return res
-        .status(400)
+        .status(501)
         .json({ error: "El id del character no esta en favoritos" });
     }
 
