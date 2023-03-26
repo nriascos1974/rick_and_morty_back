@@ -1,19 +1,21 @@
-let data = require("../utils/favs");
+let { favorite } = require("../DB_connection");
 
-function putFavs(req, res) {
-    const { id, name, image, gender, species } = req.body;
-  
+async function putFavs(req, res) {
+  try {
+    const { id, name, species, gender, image } = req.body;
+
     if (id && name && image && gender && species) {
-      const personaje = { id, name, image, gender, species };
-  
-      const yaesta = data.filter((person) => person.id === id);
-  
-      if (yaesta.length === 0) data.push(personaje);
-  
-      return res.status(200).json(data);
-    }
-  
-    req.status(500).send({ error: "Fatan datos" });
-  }
+      const personaje = { id, name, species, gender, image };
 
-  module.exports = putFavs
+      await favorite.create(personaje);
+      const favoritos = await favorite.findAll();
+      return res.status(200).json(favoritos);
+    }
+
+    req.status(400).send({ msg: "Faltan datos" });
+  } catch (error) {
+    res.status(500).send({ msg: error.message });
+  }
+}
+
+module.exports = putFavs;

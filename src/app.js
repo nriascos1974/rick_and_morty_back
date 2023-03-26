@@ -17,7 +17,7 @@ server.use(cors()); */
 
 // Middlewares
 server.use(express.json());
-server.use(morgan("dev"));
+/*  server.use(morgan("dev"));*/
 
 //Midleware control de acceso
 /* server.use("/", (req, res, next) => {
@@ -34,5 +34,6 @@ server.use(morgan("dev"));
 
 // Rutas
 server.use("/rickandmorty", routerChar);
+
 
 module.exports = server;
