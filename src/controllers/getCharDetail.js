@@ -7,9 +7,10 @@ const getCharDetail = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const response = await axios.get(
+    /* const response = await axios.get(
       `${URL_BASE}/character/${id}?key=${API_KEY}`
-    );
+    ); */
+    const response = await axios.get(`${URL}${id}`);
 
     const character = {
       id: response.data.id,
